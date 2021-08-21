@@ -1,0 +1,48 @@
+.btns {
+    border-radius: 3px;
+    white-space: nowrap;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.btn--small {
+    color: #ffffff;
+    width: 5rem;
+    height: 1.5rem;
+    font-size: 13px;
+}
+
+.btn--large {
+    width: 100px;
+    height: 40px;
+    color: #ffffff;
+    font-size: 1.3rem;
+    
+}
+
+.btn--orange {
+    background: #ED9400;
+
+}  
+
+.btns > h4 {
+    font-weight: 400;
+}
+.btns:hover {
+    opacity: 0.5;
+    transform: translateY(-2px);
+    transition: all 350ms ease-out;
+}
+/**
+width: 77px;
+    height: 21px;
+*/
+
+/**
+ width: 5rem;
+    height: 1.5rem;
+**/
+ 

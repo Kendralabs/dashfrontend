@@ -1,0 +1,27 @@
+.main--bank-ai-container {
+    min-width: 800px;
+    min-width: 800px;
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    
+}
+
+.botton--change {
+    height:40px;
+    width : 40px;
+    background: #fff;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	color: #a18d6c;
+	font-weight: 400;
+	padding: 6px;
+}
+
+.botton--change:hover {
+    opacity: 0.8;
+    transform: scale(1.08);
+    transition: all 250ms ease-out;
+}

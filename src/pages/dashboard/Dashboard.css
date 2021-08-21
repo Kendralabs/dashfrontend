@@ -1,0 +1,11 @@
+.dash--container {
+    overflow-x: auto;
+}
+
+.main--container{
+    display: flex;
+    height: calc(100vh - 75px);
+    min-height: 700px;
+    min-width: 1000px;
+    width: 100%;
+}

@@ -1,0 +1,220 @@
+import React, { useReducer, useState } from 'react'
+import { act } from 'react-dom/test-utils';
+import styled, { css } from 'styled-components/macro'
+import GraphedData from '../../../data/GraphedData';
+import { ArryedData, Infos, reducer } from '../../../data/MenuData';
+import { IoArrowForward, IoArrowBack } from 'react-icons/io5';
+import '../Styledbase.css'
+import { getKeysAndUnits } from '../../../data/SpecialFucntions';
+import Analysis from '../../../data/Analysis';
+
+const customBoxSettings = css`
+    flex: 1;
+    width: 100%;
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 300px;
+    border: 2px solid #7A838C;
+    border-radius: 3px;
+    position: relative;
+
+    .arrows--container {
+        position: absolute;
+        top:0px;
+        left:0px;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        gap:5px;
+    }
+    .title--container{
+        position: absolute;
+        top:0px;
+        right: 10px;
+
+        h4 {
+            font-size: 18px;
+            color: #7A838C;
+            font-weight: 400;
+        }
+     }
+`;
+const customRowSettings = css`
+    width: 100%;
+    display: flex;
+    gap: 5px;
+    padding: 5px;
+`;
+
+const Row = styled.div`
+    ${customRowSettings}
+`
+const CarbonData = styled.div`
+    ${customBoxSettings}
+`;
+const Elexon = styled.div`
+    ${customBoxSettings}
+`;
+const ElexonPirce = styled.div`
+    ${customBoxSettings}
+`;
+const ElexonTransmit = styled.div`
+    ${customBoxSettings}
+`
+const ElexonFreq = styled.div`
+    ${customBoxSettings}
+`;
+
+const Solar = styled.div`
+    ${customBoxSettings}
+`;
+
+
+const BankEnergi = () => {
+    const { carbonExported, elexonDataExported,
+        freqElexonExported, solarExported,
+        transmitElexonExported, windOffShoreExported,
+        windOnShoreExported, priceElexonExported } = Infos();
+
+    const [{ ids }, dispatch] = useReducer(reducer, {
+        ids: {
+            carbonDataI: 0,
+            elexonData: 0,
+            elexonPriceData: 0,
+            elexonFreqData: 0,
+            elexonTransmitData: 0,
+            solarData: 0,
+            windData: 0,
+            tempData: 0
+        }
+    })
+
+    return (
+        <div className="main--bankcontainer">
+            <Row>
+                <CarbonData>
+                    <div className="arrows--container">
+                        <IoArrowBack className="botton--change" onClick={() => dispatch({ type: 'carbonPrev' })} />
+                        <IoArrowForward className="botton--change" onClick={() => dispatch({ type: 'carbonNext' })} />
+                    </div>
+                    <div className="title--container">
+                        <h4>Carbon Intensity</h4>
+                    </div>
+                    <GraphedData
+                        graphId={ids.carbonDataI}
+                        dataGiven={carbonExported}
+                        keysAndUnits={getKeysAndUnits('carbon')}
+                    />
+                    <Analysis
+                        dataGiven={carbonExported}
+                        dataType='carbon'
+                    />
+
+                </CarbonData>
+                <Elexon>
+                    <div className="arrows--container">
+                        <IoArrowBack className="botton--change" onClick={() => dispatch({ type: 'elexonPrev' })} />
+                        <IoArrowForward className="botton--change" onClick={() => dispatch({ type: 'elexonNext' })} />
+                    </div>
+                    <div className="title--container">
+                        <h4>Elexon demand</h4>
+                    </div>
+                    <GraphedData
+                        graphId={ids.elexonData}
+                        dataGiven={elexonDataExported}
+                        keysAndUnits={getKeysAndUnits('elexon')}
+                    />
+                    <Analysis
+                        dataGiven={elexonDataExported}
+                        dataType='elexon'
+                    />
+                </Elexon>
+
+            </Row>
+            {/***     Second row        ****** ***/}
+            <Row>
+                <ElexonPirce>
+                    <div className="title--container">
+                        <h4>Elexon Price</h4>
+                    </div>
+                    <GraphedData
+                        graphId={1}
+                        dataGiven={priceElexonExported}
+                        keysAndUnits={getKeysAndUnits('elexonprice')}
+                    />
+                    <Analysis
+                        dataGiven={priceElexonExported}
+                        dataType='elexonprice'
+                    />
+                </ElexonPirce>
+                <ElexonTransmit>
+                    <div className="arrows--container">
+                        <IoArrowBack className="botton--change" onClick={() => dispatch({ type: 'elexonTransmitNext' })} />
+                        <IoArrowForward className="botton--change" onClick={() => dispatch({ type: 'elexonTransmitPrev' })} />
+                    </div>
+                    <div className="title--container">
+                        <h4>Elexon Transmit</h4>
+                    </div>
+                    <GraphedData
+                        graphId={ids.elexonTransmitData}
+                        dataGiven={transmitElexonExported}
+                        keysAndUnits={getKeysAndUnits('energytransmit')}
+                    />
+                    <Analysis
+                        dataGiven={transmitElexonExported}
+                        dataType='energytransmit'
+                    />
+                </ElexonTransmit>
+                
+            </Row>
+            {/***     Third row        ****** ***/}
+            <Row>
+                <ElexonFreq>
+                <div className="arrows--container">
+                        <IoArrowBack className="botton--change" onClick={() => dispatch({ type: 'elexonFreqNext' })} />
+                        <IoArrowForward className="botton--change" onClick={() => dispatch({ type: 'elexonFreqPrev' })} />
+                    </div>
+                    <div className="title--container">
+                        <h4>Elexon Frequency</h4>
+                    </div>
+                    <GraphedData
+                        graphId={ids.elexonFreqData}
+                        dataGiven={freqElexonExported}
+                        keysAndUnits={getKeysAndUnits('energyfrequency')}
+                    />
+                    <Analysis
+                        dataGiven={freqElexonExported}
+                        dataType='energyfrequency'
+                    />
+
+                </ElexonFreq>
+                <Solar>
+                <div className="arrows--container">
+                        <IoArrowBack className="botton--change" onClick={() => dispatch({ type: 'solarTransmitPrev' })} />
+                        <IoArrowForward className="botton--change" onClick={() => dispatch({ type: 'solarTransmitNext' })} />
+                    </div>
+                    <div className="title--container">
+                        <h4>Solar data</h4>
+                    </div>
+                    <GraphedData
+                        graphId={ids.solarData}
+                        dataGiven={solarExported}
+                        keysAndUnits={getKeysAndUnits('solar')}
+                    />
+                    <Analysis
+                        dataGiven={solarExported}
+                        dataType='solar'
+                    />
+
+                </Solar>
+
+
+            </Row>
+
+        </div>
+    )
+}
+
+export default BankEnergi
