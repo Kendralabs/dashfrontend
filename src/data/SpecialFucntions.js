@@ -276,4 +276,11 @@ export const getFinalArray = (dataScreen, dataType) => {
     else return null;
 }
 
+export const sorti = (data) => {
+    if (data) {
+        const sorted = data.slice().sort((a,b) => a.dati - b.dati)
+        return sorted;
+    }
+}
+
 

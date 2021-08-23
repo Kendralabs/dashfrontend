@@ -133,9 +133,9 @@ const ButtomSection = styled.div`
 `;
 
 const Login = ({ setUser }) => {
-    const [username, setUsername] = useState("");
+    const [usernameOrEmail, setUsernameOrEmail] = useState("");
     const [password, setPassword] = useState("");
-    console.log('Username is' + username )
+    console.log('Username is' + usernameOrEmail )
     console.log('password is' + password )
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -145,7 +145,7 @@ const Login = ({ setUser }) => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
-                body: JSON.stringify({ username, password })
+                body: JSON.stringify({ usernameOrEmail, password })
 
             });
             const json = await res.json();
@@ -184,8 +184,8 @@ const Login = ({ setUser }) => {
                         <InputEmail
                             placeholder="Email"
                             type="text"
-                            value = {username}
-                            onChange = {(e) => setUsername(e.target.value)}
+                            value = {usernameOrEmail}
+                            onChange = {(e) => setUsernameOrEmail(e.target.value)}
                             >
                         </InputEmail>
                         <InputPassword

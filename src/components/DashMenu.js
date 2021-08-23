@@ -155,10 +155,10 @@ const DashMenu = ({ cName }) => {
                         <Link className="link--item">
                             Users
                     </Link>
-                        <Link className="link--item" to="/aimodel">
+                        <Link className="link--item" to="dash/aimodel">
                             Ai Model
                     </Link>
-                        <Link className="link--item" to="/visual_data">
+                        <Link className="link--item" to="dash/visual_data">
                         Data visualization
                     </Link>
                     </MenuSection>

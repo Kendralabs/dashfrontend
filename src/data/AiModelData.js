@@ -52,17 +52,30 @@ export const graphsData = [
 export const Infos = () => {
     const [prediction, setPrediction] = useState(null);
     const [testSet, setTestSet] = useState(null);
-
+    
     useEffect(() => {
         csv(predictionFile).then(data => {
-            setPrediction(data)
+            const temp = data.map((value, index) => {
+                value.dati = new Date(value.date)
+                return value
+            }) 
+            setPrediction(data);
         });
         csv(testSetFile).then(data => {
-            setTestSet(data)
+            const temp = data.map((value, index) => {
+                value.dati = new Date(value.date)
+                return value
+            })
+            setTestSet(temp)
         });
-    }, [])
-
-
+       }, [])
+      
+  
     return { prediction, testSet }
 
 } 
+
+const addDati = (data) => {
+    const mapper = [];
+
+}

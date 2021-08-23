@@ -22,9 +22,9 @@ const MainContentContainer = ({showMenu}) => {
         <Container
             primary={showMenu}>
            <Switch>
-               <Route path="/"  component={Home} exact/>
-               <Route path="/visual_data" component={BankEnergi} exact />
-               <Route path="/aimodel" component={AI_Model} exact />
+               <Route path="/dash"  component={Home} exact/>
+               <Route path="/dash/visual_data" component={BankEnergi} exact />
+               <Route path="/dash/aimodel" component={AI_Model} exact />
            </Switch>
           
         </Container>

@@ -9,6 +9,7 @@ import { IoArrowBack, IoArrowForward } from 'react-icons/io5'
 import DisplayTable from '../../../data/DisplayTable'
 
 
+
 export const AI_Model = () => {
     const {prediction, testSet} = Infos();
     const [{ids}, dispatch] = useReducer(reducer,{ids : { predictionId : 0, testSetId : 1 }})
@@ -24,9 +25,9 @@ export const AI_Model = () => {
                 returnedObj.data = testSet;  
                 break;
         }
-        console.log(returnedObj);
         return returnedObj;
      }
+     console.log(prediction)
     return (
         <div className="main--bank-ai-container">
              {graphsData.map((subarray, index) => {
@@ -64,3 +65,5 @@ export const AI_Model = () => {
         </div>
     )
 }
+
+

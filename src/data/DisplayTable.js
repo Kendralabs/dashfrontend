@@ -7,8 +7,10 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { sorti } from './SpecialFucntions';
 
 const DisplayTable = ({dataGiven}) => {
+    
     const StyledTableCell = withStyles((theme) => ({
         head: {
           backgroundColor: '#001555',
@@ -32,7 +34,7 @@ const DisplayTable = ({dataGiven}) => {
         return {date,MW_Prediction};
     }
     if (dataGiven) {
-    dataGiven.map((value, index) => {
+    sorti(dataGiven).map((value, index) => {
         rows.push(createData(value.date, value.MW_Prediction));
     })
     }
