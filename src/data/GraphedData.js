@@ -1,14 +1,17 @@
 import React from 'react'
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, 
-    BarChart, Bar, AreaChart, Area, LineChart, Line, XAxis, YAxis, CartesianGrid, 
-    Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {
+  Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
+  BarChart, Bar, AreaChart, Area, LineChart, Line, XAxis, YAxis, CartesianGrid,
+  Tooltip, Legend, ResponsiveContainer
+} from 'recharts';
 import styled from 'styled-components';
-import { getFinalArray, sorti } from './SpecialFucntions';
+import { getFinalArray } from './SpecialFucntions';
 
 export const BottomSection = styled.div`
     position: absolute;
     width: 40%;
     height: 30px;
+    left:0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,6 +24,7 @@ export const BottomSection = styled.div`
         height: 100%;
         border: 2px solid black ;
     }
+  
 `;
 
 
@@ -32,12 +36,12 @@ const GraphedData = ({ dataGiven, graphId, keysAndUnits}) => {
     const heightScale = '88%'
     var maxValueDomain = null;
     var minValueDomain = null;
-    console.log(dataGiven)
+   
     if (getFinalArray(dataGiven, dataType)){
     maxValueDomain = getFinalArray(dataGiven, dataType)[0].absoluteMaxValue;
     minValueDomain = getFinalArray(dataGiven, dataType)[0].absoluteMinValue;
-   
-    }
+  
+   }
     switch (graphId) {
       case 0:
         return (
@@ -46,7 +50,7 @@ const GraphedData = ({ dataGiven, graphId, keysAndUnits}) => {
                     <LineChart
                         width={500}
                         height={300}
-                        data={sorti(dataGiven)}
+                        data={dataGiven}
                         margin={{
                             top: 10,
                             right: 10,
@@ -58,14 +62,14 @@ const GraphedData = ({ dataGiven, graphId, keysAndUnits}) => {
                         <XAxis dataKey={dataKeyOne} label={{ value: labelX, position: "top", fill: fontColor }} />
                         <YAxis   domain={[parseFloat(minValueDomain), parseFloat(maxValueDomain)]}  />
                         <Tooltip />
-                        <Line type="monotone" dataKey={dataKeyTwo} stroke="#8884d8" activeDot={{ r: 8 }} />
+                        <Line type="monotone" dataKey={dataKeyTwo} stroke="#8884d8" activeDot={{ r: 8 }}  dot={false}/>
                     </LineChart>
                 </ResponsiveContainer>
                 <BottomSection>
-                    <div className="color--box">
+                   {/**  <div className="color--box">
 
-                    </div>
-                    <p>{labelY}</p>
+                    </div> */}
+                    <p className="">{labelY}</p>
                 </BottomSection>
             </div>
         )
@@ -78,7 +82,7 @@ const GraphedData = ({ dataGiven, graphId, keysAndUnits}) => {
               <AreaChart
                 width={200}
                 height={200}
-                data={sorti(dataGiven)}
+                data={dataGiven}
                 margin={{
                   top: 10,
                   right: 30,
@@ -109,7 +113,7 @@ const GraphedData = ({ dataGiven, graphId, keysAndUnits}) => {
               <BarChart
                 width={500}
                 height={300}
-                data={sorti(dataGiven)}
+                data={dataGiven}
                 margin={{
                   top: 5,
                   right: 30,
@@ -139,7 +143,7 @@ const GraphedData = ({ dataGiven, graphId, keysAndUnits}) => {
           <div style={style}
           >
             <ResponsiveContainer width={widthScale} height={heightScale}>
-              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={sorti(dataGiven)}>
+              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={dataGiven}>
                 <PolarGrid />
                 <PolarAngleAxis dataKey={dataKeyOne} tick={{  fontWeight: "800", opacity: 0 }} />
                 <PolarRadiusAxis angle={30} domain={[0, 150]} tick={{ fontWeight: "800", opacity: 0 }} />

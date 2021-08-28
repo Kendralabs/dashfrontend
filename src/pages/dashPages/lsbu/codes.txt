@@ -1,0 +1,150 @@
+import React, { useState, useEffect } from 'react'
+import '../Styledbase.css';
+import styled, { css } from 'styled-components/macro'
+import Display from './Display';
+
+
+const Part = styled.div`
+    width: 49%;
+    height: 85%;
+    min-height: 10px;
+    background: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 5px;
+    gap: 10px;
+    background: #F2F2F2;
+`;
+
+const subDivCustom = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+   
+`;
+
+const TopSection = styled.div`
+    flex: 1;
+    width: 100%;
+    border-radius: 3px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: repeat(2, 1fr);
+    column-gap: 30px;
+    grid-row-gap: 10px;
+
+    & > div {
+        background: white;
+        border:2px solid #7A838C;
+        border-radius: 3px;
+        display: flex;
+
+        & > .section--one {
+            border-right : 2px solid #7A838C;
+            flex: 1;
+            ${subDivCustom}
+            h4 {
+                font-size: 11px;
+                font-weight: 300;
+            }
+        }
+
+        & > .section--two {
+            flex : 1.5;
+            ${subDivCustom}
+        }
+    }
+
+`;
+const BottomSection = styled.div`
+    flex : 2.1;
+    width: 100%;
+    background: white;
+    border:2px solid #7A838C;
+    border-radius: 3px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+    padding: 0 5px;
+
+`;
+const Section = ({ dataGiven }) => {
+   
+    
+    const title = dataGiven && dataGiven.title
+    console.log(title)
+    const dataV1 = dataGiven && dataGiven.statistics[0]
+    const dataV2 = dataGiven && dataGiven.statistics[1]
+    var keys1 = null
+    var keys2 = null;
+    if (dataGiven) {
+        keys1 = Object.keys(dataGiven.statistics[0])
+        keys2 = Object.keys(dataGiven.statistics[1])
+    }
+    
+    return (
+        <div className="section--container">
+            <h3 className="title--section">
+                {title}
+            </h3>
+            <Part>
+                <TopSection>
+                    {keys1 && keys1.map((value, index) => {
+                        return (
+                            <div key={index}>
+                                <div className="section--one">
+                                    <h4>{value}</h4>
+
+                                </div>
+                                <div className="section--two">
+                                    {dataV1[value]}
+                                </div>
+                            </div>
+                        )
+
+                    })}
+
+                </TopSection>
+                <BottomSection>
+                    <Display dataSent={dataGiven && dataGiven.data} 
+                            keysAndUnits={dataGiven && dataGiven.energyUnits}
+                            statistics={dataV1} 
+                            type="Energy"/>
+
+                </BottomSection>
+            </Part>
+            <Part>
+                <TopSection>
+                {keys2 && keys2.map((value, index) => {
+                        return (
+                            <div key={index}>
+                                <div className="section--one">
+                                    <h4>{value}</h4>
+
+                                </div>
+                                <div className="section--two">
+                                    {dataV2[value]}
+                                </div>
+                            </div>
+                        )
+
+                    })}
+                </TopSection>
+                <BottomSection>
+                    <Display dataSent={dataGiven && dataGiven.data}
+                             keysAndUnits={dataGiven && dataGiven.emissionunits}
+                             statistics={dataV2}
+                             type="Emission"/>
+
+                </BottomSection>
+
+            </Part>
+        </div>
+    )
+}
+
+export default Section

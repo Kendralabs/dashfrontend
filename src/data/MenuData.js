@@ -108,7 +108,7 @@ export const graphsData = [
             bottonNextId: 'solarProductionNext'
         },
         {
-            title: 'Pricing Data from elexon',
+            title: 'Energy pricing (Flex market)',
             dataId: 'elexonprice',
             bottonPrevId: 'elexonPricePrev',
             bottonNextId: 'elexonPriceNext'
@@ -123,7 +123,7 @@ export const graphsData = [
             bottonNextId: 'elexonFreqNext'
         },
         {
-            title: 'Daily Energy Transmit',
+            title: 'Energy consumption',
             dataId: 'energytransmit',
             bottonPrevId: 'elexonTransmitPrev',
             bottonNextId: 'elexonTransmitNext'
@@ -158,6 +158,7 @@ export const Infos = () => {
     const [windOffShoreExported, setWindOffShoreExported] = useState(null);
     const [windOnShoreExported, setWindOnShoreExported] = useState(null);
     const [energyFuel, setEnergyFuel] = useState(null);
+    const [weatherData , setWeatherData] = useState(null)
     useEffect(() => {
         csv(carbon_intensity).then(data => {
             setCarbonExported(data)
@@ -186,6 +187,9 @@ export const Infos = () => {
         csv(fuelEnergy).then(data => {
             setEnergyFuel(data)
         });
+        csv(weather).then(data => {
+            setWeatherData(data)
+        });
     }, [])
 
     return {
@@ -193,7 +197,7 @@ export const Infos = () => {
         freqElexonExported, solarExported,
         transmitElexonExported, windOffShoreExported,
         windOnShoreExported, priceElexonExported,
-        energyFuel
+        energyFuel, weatherData
     };
 
 }

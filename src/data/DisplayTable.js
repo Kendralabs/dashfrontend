@@ -7,7 +7,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { sorti } from './SpecialFucntions';
 
 const DisplayTable = ({dataGiven}) => {
     
@@ -34,7 +33,7 @@ const DisplayTable = ({dataGiven}) => {
         return {date,MW_Prediction};
     }
     if (dataGiven) {
-    sorti(dataGiven).map((value, index) => {
+      dataGiven.map((value, index) => {
         rows.push(createData(value.date, value.MW_Prediction));
     })
     }
@@ -43,7 +42,7 @@ const DisplayTable = ({dataGiven}) => {
           minWidth: 700,
         },
       });
-    const styledDiv = {width : '100%' , height : '100%'}  
+    const styledDiv = {width : '50%' , height : '100%',border:'2px solid black', borderRadius : '3px', marginTop : '10px'}  
     const classes = useStyles();
 
     return (

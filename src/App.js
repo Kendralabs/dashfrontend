@@ -1,3 +1,15 @@
+import {useState, useEffect} from 'react';
+import './App.css';
+import Dashboard from './pages/dashboard/Dashboard';
+import Login from './pages/login/Login';
+import Cookies from 'js-cookie';
+import axios from "axios";
+import fetch from 'unfetch';
+import ProfileSetUp from './pages/profile/ProfileSetUp';
+import Register from './pages/register/Register';
+import TryInPage from './pages/TryInPage';
+import { URL_BACK } from './GlobalValues';
+
 function App() {
   const [user, setUser] = useState(null)
 
@@ -35,20 +47,16 @@ function App() {
   }, [])
   return (
     <div className="App">
-      
-  
-    <div className="App">
-      {
-        user ? <Dashboard 
-            user={user}
+    {
+      user ? <Dashboard 
+          user={user}
+          setUser = {setUser}
+      /> : <Login 
             setUser = {setUser}
-        /> : <Login 
-              setUser = {setUser}
-        />
-      }
+      />
+    }
 
-    </div> 
-    </div>
+  </div> 
    
   );
 }

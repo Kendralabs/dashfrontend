@@ -49,7 +49,7 @@ export const getKeysAndUnits = (string) => {
             returnedObj.dataKeyOne = "date"
             returnedObj.dataKeyTwo = "nuclear"
             returnedObj.dataKeyTwoI = "turbine"
-            returnedObj.dataKeyTwoII = "gas"
+            returnedObj.dataKeyTwoII = "gas turbine"
             returnedObj.dataKeyTwoIII = "coal"
             returnedObj.dataKeyTwoIV = "hydro"
             returnedObj.labelX = "Time in GMT"
@@ -59,14 +59,44 @@ export const getKeysAndUnits = (string) => {
             returnedObj.dataKeyOne = "date"
             returnedObj.dataKeyTwo = "MW_Prediction"
             returnedObj.labelX = "Day";
-            returnedObj.labelY = "Daily Transmition (MW) ";
+            returnedObj.labelY = "Daily Consumption (MW) ";
             break;
         case 'testSet':
             returnedObj.dataKeyOne = "date"
             returnedObj.dataKeyTwo = "MW_Prediction"
             returnedObj.labelX = "Day";
-            returnedObj.labelY = "Demand Forecasting (MW)";
+            returnedObj.labelY = "Prediction (MW)";
             break;
+        case 'pricePrediction':
+            returnedObj.dataKeyOne = "date"
+            returnedObj.dataKeyTwo = "MW_Prediction"
+            returnedObj.labelX = "Day";
+            returnedObj.labelY = "Prediction (MW) ";
+            break;
+        case 'priceTestSet':
+            returnedObj.dataKeyOne = "date"
+            returnedObj.dataKeyTwo = "price"
+            returnedObj.labelX = "Day";
+            returnedObj.labelY = "Price (MW)";
+            break;
+        case 'energyPrediction':
+            returnedObj.dataKeyOne = "date"
+            returnedObj.dataKeyTwo = "MW_Prediction"
+            returnedObj.labelX = "Day";
+            returnedObj.labelY = "Predction (MW) ";
+            break;
+        case 'energyTestSet':
+            returnedObj.dataKeyOne = "date"
+            returnedObj.dataKeyTwo = "demand"
+            returnedObj.labelX = "Day";
+            returnedObj.labelY = "Demand (MW)";
+            break;
+        case 'weather' :
+            returnedObj.dataKeyOne = "Time"
+            returnedObj.dataKeyTwo = "Temperature"
+            returnedObj.labelX = "Time";
+            returnedObj.labelY = "Temperature (Celsius)";
+
 
 
 
@@ -87,7 +117,7 @@ export const getFinalArray = (dataScreen, dataType) => {
     if (dataScreen) {
         switch (dataType) {
             case 'elexon':
-                var sorted = dataScreen.sort((a, b) => a.Demand - b.Demand)
+                var sorted = [...dataScreen].sort((a, b) => a.Demand - b.Demand)
                 arrayTobReturned = [
                     {
                         absoluteMaxValue: sorted[sorted.length - 1].Demand,
@@ -104,7 +134,7 @@ export const getFinalArray = (dataScreen, dataType) => {
                 ]
                 break;
             case 'carbon':
-                var sorted = dataScreen.sort((a, b) => a.Intensity - b.Intensity)
+                var sorted = [...dataScreen].sort((a, b) => a.Intensity - b.Intensity)
                 var sum = 0;
                 dataScreen.map((value, index) => {
                     sum += value.Intensity;
@@ -129,11 +159,9 @@ export const getFinalArray = (dataScreen, dataType) => {
                     }
 
                 ]
-                console.log('Max value of carbon is ' + arrayTobReturned[0].absoluteMaxValue)
-                console.log('Max value of carbon is ' + arrayTobReturned[0].absoluteMinValue)
                 break;
             case 'solar':
-                var sorted = dataScreen.sort((a, b) => a.generation_mw - b.generation_mw)
+                var sorted = [...dataScreen].sort((a, b) => a.generation_mw - b.generation_mw)
                 var sum = 0;
                 dataScreen.map((value, index) => {
                     sum += parseFloat(value.generation_mw);
@@ -159,7 +187,7 @@ export const getFinalArray = (dataScreen, dataType) => {
                 break;
 
             case 'elexonprice':
-                var sorted = dataScreen.sort((a, b) => a.price - b.price)
+                var sorted = [...dataScreen].sort((a, b) => a.price - b.price)
                 arrayTobReturned = [
                     {
                         absoluteMaxValue: sorted[sorted.length - 1].price,
@@ -177,7 +205,7 @@ export const getFinalArray = (dataScreen, dataType) => {
                 ]
                 break;
             case 'energytransmit':
-                var sorted = dataScreen.sort((a, b) => a.volume - b.volume)
+                var sorted = [...dataScreen].sort((a, b) => a.volume - b.volume)
                 arrayTobReturned = [
                     {
                         absoluteMaxValue: sorted[sorted.length - 1].volume,
@@ -195,7 +223,7 @@ export const getFinalArray = (dataScreen, dataType) => {
                 ]
                 break;
             case 'energyfrequency':
-                var sorted = dataScreen.sort((a, b) => parseFloat(a.volume) - parseFloat(b.volume))
+                var sorted = [...dataScreen].sort((a, b) => parseFloat(a.volume) - parseFloat(b.volume))
                 var sum = 0;
                 dataScreen.map((value, index) => {
                     sum += parseFloat(value.frequency);
@@ -213,7 +241,7 @@ export const getFinalArray = (dataScreen, dataType) => {
                 ]
                 break;
             case 'wind':
-                var sorted = dataScreen.sort((a, b) => parseFloat(a.quantitysettlementDate) - parseFloat(b.quantitysettlementDate))
+                var sorted = [...dataScreen].sort((a, b) => parseFloat(a.quantitysettlementDate) - parseFloat(b.quantitysettlementDate))
                 var sum = 0;
                 dataScreen.map((value, index) => {
                     sum += parseFloat(value.quantitysettlementDate);
@@ -230,16 +258,17 @@ export const getFinalArray = (dataScreen, dataType) => {
                     },
                     {
                         label: 'Min wind energy',
-                        value: sorted[0].volume + ' during ' + sorted[0].period,
+                        value: sorted[0].quantitysettlementDate + ' during ' + sorted[0].period,
                     },
                     {
                         label: 'Average wind energy',
                         value: (sum / dataScreen.length).toFixed(2)
                     }
                 ]
+                console.log(arrayTobReturned)
                 break;
             case 'prediction':
-                var sorted = dataScreen.sort((a, b) => parseFloat(a.MW_Prediction) - parseFloat(b.MW_Prediction))
+                var sorted = [...dataScreen].sort((a, b) => parseFloat(a.MW_Prediction) - parseFloat(b.MW_Prediction))
                 var sum = 0;
                 dataScreen.map((value, index) => {
                     sum += parseFloat(value.MW_Prediction);
@@ -253,7 +282,7 @@ export const getFinalArray = (dataScreen, dataType) => {
                 ]
                 break;
             case 'testSet':
-                var sorted = dataScreen.sort((a, b) => parseFloat(a.MW_Prediction) - parseFloat(b.MW_Prediction))
+                var sorted = [...dataScreen].sort((a, b) => parseFloat(a.MW_Prediction) - parseFloat(b.MW_Prediction))
                 var sum = 0;
                 dataScreen.map((value, index) => {
                     sum += parseFloat(value.MW_Prediction);
@@ -267,6 +296,67 @@ export const getFinalArray = (dataScreen, dataType) => {
                 ]
                 break;
 
+            case 'pricePrediction':
+                var sorted = [...dataScreen].sort((a, b) => parseFloat(a.MW_Prediction) - parseFloat(b.MW_Prediction))
+                var sum = 0;
+                dataScreen.map((value, index) => {
+                    sum += parseFloat(value.MW_Prediction);
+
+                })
+                arrayTobReturned = [
+                    {
+                        absoluteMaxValue: sorted[sorted.length - 1].MW_Prediction,
+                        absoluteMinValue: sorted[0].MW_Prediction
+                    }
+                ]
+                break;
+            case 'priceTestSet':
+                var sorted = [...dataScreen].sort((a, b) => parseFloat(a.price) - parseFloat(b.price))
+                var sum = 0;
+                dataScreen.map((value, index) => {
+                    sum += parseFloat(value.price);
+
+                })
+                arrayTobReturned = [
+                    {
+                        absoluteMaxValue: sorted[sorted.length - 1].price,
+                        absoluteMinValue: sorted[0].price
+                    }
+                ]
+                break;
+            case 'energyPrediction':
+                var sorted = [...dataScreen].sort((a, b) => parseFloat(a.MW_Prediction) - parseFloat(b.MW_Prediction))
+                var sum = 0;
+                dataScreen.map((value, index) => {
+                    sum += parseFloat(value.MW_Prediction);
+
+                })
+                arrayTobReturned = [
+                    {
+                        absoluteMaxValue: sorted[sorted.length - 1].MW_Prediction,
+                        absoluteMinValue: sorted[0].MW_Prediction
+                    }
+                ]
+                break;
+            case 'energyTestSet':
+                var sorted = [...dataScreen].sort((a, b) => parseFloat(a.demand) - parseFloat(b.demand))
+                var sum = 0;
+                dataScreen.map((value, index) => {
+                    sum += parseFloat(value.demand);
+
+                })
+                arrayTobReturned = [
+                    {
+                        absoluteMaxValue: sorted[sorted.length - 1].demand,
+                        absoluteMinValue: sorted[0].demand
+                    }
+                ]
+                break;
+            case 'energyFuel':
+                var sorted = [...dataScreen].sort((a, b) => parseFloat(a.MW_Prediction) - parseFloat(b.MW_Prediction))
+
+
+
             default:
                 break;
         }
@@ -276,11 +366,6 @@ export const getFinalArray = (dataScreen, dataType) => {
     else return null;
 }
 
-export const sorti = (data) => {
-    if (data) {
-        const sorted = data.slice().sort((a,b) => a.dati - b.dati)
-        return sorted;
-    }
-}
+
 
 

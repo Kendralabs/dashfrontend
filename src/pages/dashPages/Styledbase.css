@@ -5,8 +5,37 @@
     width: 100%;
     overflow-y: scroll;
     overflow-x: scroll;
+    position: relative;
+    
     
 }
+
+
+.main--bank-ai-container > h1 {
+    text-align: center;
+    font-weight: 400;
+    color:  #a18d6c;
+   
+}
+
+.main--lsbu--container {
+    min-width: 800px;
+    min-width: 800px;
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    
+}  
+
+
+
+
 
 .botton--change {
     height:40px;
@@ -24,4 +53,30 @@
     opacity: 0.8;
     transform: scale(1.08);
     transition: all 250ms ease-out;
+}
+
+.section--container {
+    width: 95%;
+    min-width: 500px;
+    min-height: 400px;
+    height: 50%;
+    border:2px solid #7A838C;
+    background: #F2F2F2;
+    position: relative;
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 10px 5px 10px;
+}
+
+.title--section {
+    position:  absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 300;
+    font-size: 2rem;
+    color: rgb(44, 43, 43);
+    
 }

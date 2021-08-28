@@ -1,9 +1,11 @@
-import React from 'react'
+import React,{useState} from 'react'
 import './DashMenu.css';
 import styled, { css } from 'styled-components/macro'
 import { Link } from 'react-router-dom';
 import {Dashboard as Dash} from '@material-ui/icons';
 import {List, Work,CropLandscape} from '@material-ui/icons';
+import Lsbu from './subcomponents/Lsbu.jsx';
+import AiModal from './subcomponents/AiModal';
 
 const UserProfileBox = styled.div`
     width: 100%;
@@ -117,10 +119,14 @@ const MenuSection = styled.div`
         
      }
 
+
 `;
 
 const DashMenu = ({ cName }) => {
     const profileName = "Anouar"
+    const [subMenu, setSubMenu] = useState(false);
+    const [subMenuI, setSubMenuI] = useState(false);
+    
     return (
         <div className={cName}>
             <UserProfileBox>
@@ -143,9 +149,6 @@ const DashMenu = ({ cName }) => {
                         <Link className="link--item" to="/">
                             Home
                     </Link>
-                        <Link className="link--item">
-                            Announcements
-                    </Link>
                     </MenuSection>
                     <MenuSection>
                         <div className="item--header">
@@ -155,14 +158,21 @@ const DashMenu = ({ cName }) => {
                         <Link className="link--item">
                             Users
                     </Link>
-                        <Link className="link--item" to="dash/aimodel">
-                            Ai Model
+                        <Link className="link--item" onClick ={() => {
+                            setSubMenuI(!subMenuI)
+                        }}>
+                            Prediction models
                     </Link>
-                        <Link className="link--item" to="dash/visual_data">
-                        Data visualization
+                    <AiModal subMenuI={subMenuI} />
+                        <Link className="link--item" to="/visual_data">
+                        Real time data
                     </Link>
-                    </MenuSection>
-                    <MenuSection>
+                    <Link className="link--item" onClick={() => setSubMenu(!subMenu)}>
+                        Carbon footprint calculator (LSBU) 
+                    </Link>
+                    <Lsbu subMenu={subMenu} />
+                 </MenuSection>
+                  {/**    <MenuSection>
                         <div className="item--header">
                             <Work className="icon" />
                             <h4>Organize</h4>
@@ -171,7 +181,7 @@ const DashMenu = ({ cName }) => {
                             Workspace
                     </Link>
 
-                    </MenuSection>
+                    </MenuSection> */}
                     <MenuSection>
                         <div className="item--header">
                             <CropLandscape className="icon" />

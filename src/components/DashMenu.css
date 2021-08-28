@@ -1,3 +1,4 @@
+
 .main-container {
     height: 0px;
     width:0px;
@@ -18,3 +19,16 @@
 
 }
 
+.main--sub {
+    transition: all 800ms ease-out;
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    height:0;
+    margin-left: 10px;
+
+    }
+    .main--sub.active {
+        height: auto;
+        transition: all 800ms ease-out;
+    }

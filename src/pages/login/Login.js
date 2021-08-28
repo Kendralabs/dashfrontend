@@ -135,8 +135,6 @@ const ButtomSection = styled.div`
 const Login = ({ setUser }) => {
     const [usernameOrEmail, setUsernameOrEmail] = useState("");
     const [password, setPassword] = useState("");
-    console.log('Username is' + usernameOrEmail )
-    console.log('password is' + password )
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('Hitted')

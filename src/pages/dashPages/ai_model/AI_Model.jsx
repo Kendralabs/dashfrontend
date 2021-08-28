@@ -30,6 +30,8 @@ export const AI_Model = () => {
      console.log(prediction)
     return (
         <div className="main--bank-ai-container">
+            <h1> Future Consumption forecasting </h1>
+            
              {graphsData.map((subarray, index) => {
                 return (
                     <Row key={index}>
@@ -55,6 +57,7 @@ export const AI_Model = () => {
                     </Row>
                 )
             })}
+            <h1> Consumption predictions</h1>
             <Row>
                 <Cell>
                     <DisplayTable
@@ -62,6 +65,7 @@ export const AI_Model = () => {
                     />
                 </Cell>
             </Row>
+            
         </div>
     )
 }

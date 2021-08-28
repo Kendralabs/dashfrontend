@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react';
 import { csv } from 'd3';
 import predictionFile from './csvfiles/aimodelfiles/prediction.csv'
 import testSetFile from './csvfiles/aimodelfiles/testset.csv';
+import pricePredictionFile from './csvfiles/aimodelfiles/pricePrediction.csv'
+import priceTestSetFile from './csvfiles/aimodelfiles/priceTestset.csv';
+import energyPredictionFile from './csvfiles/aimodelfiles/energyPrediction.csv'
+import energyTestsetFile from './csvfiles/aimodelfiles/energyTestset.csv';
 
 
 export const reducer = (state, action) => {
@@ -32,14 +36,52 @@ export const reducer = (state, action) => {
 export const graphsData = [
     [
         {
-            title: 'Daily Energy Tranmission',
+            title: 'Historic energy consumption of UK market',
             dataId: 'testSet',
             bottonPrevId: 'testSetPrev',
             bottonNextId: 'testSetNext'
         },
         {
-            title: 'Daily Energy Prediction',
+            title: 'Daily energy consumption for energy market',
             dataId: 'prediction',
+            bottonPrevId: 'predictionPrev',
+            bottonNextId: 'predictionNext'
+        }
+
+    ]
+
+];
+
+export const graphsDataI = [
+    [
+        {
+            title: 'Historic prices',
+            dataId: 'priceTestSet',
+            bottonPrevId: 'testSetPrev',
+            bottonNextId: 'testSetNext'
+        },
+        {
+            title: 'System selling price prediction for balancing market',
+            dataId: 'pricePrediction',
+            bottonPrevId: 'predictionPrev',
+            bottonNextId: 'predictionNext'
+        }
+
+    ]
+
+];
+
+export const graphsDataII = [
+    [
+        {
+            title: 'Historic demand ',
+            dataId: 'energyTestSet',
+            bottonPrevId: 'testSetPrev',
+            bottonNextId: 'testSetNext'
+        },
+        {
+            title: 'Flex market energy demand forecasting',
+            dataId: 'energyPrediction',
             bottonPrevId: 'predictionPrev',
             bottonNextId: 'predictionNext'
         }
@@ -52,26 +94,34 @@ export const graphsData = [
 export const Infos = () => {
     const [prediction, setPrediction] = useState(null);
     const [testSet, setTestSet] = useState(null);
+    const [demandPrediction, setDemandPrediction] = useState(null);
+    const [demandTestSet, setDemandTestSet] = useState(null);
+    const [pricePrediction, setPricePrediction] = useState(null);
+    const [priceTestSet, setPriceTestSet] = useState(null);
     
     useEffect(() => {
         csv(predictionFile).then(data => {
-            const temp = data.map((value, index) => {
-                value.dati = new Date(value.date)
-                return value
-            }) 
             setPrediction(data);
         });
         csv(testSetFile).then(data => {
-            const temp = data.map((value, index) => {
-                value.dati = new Date(value.date)
-                return value
-            })
-            setTestSet(temp)
+            setTestSet(data)
+        });
+        csv(energyPredictionFile).then(data => {
+            setDemandPrediction(data);
+        });
+        csv(energyTestsetFile).then(data => {
+            setDemandTestSet(data)
+        });
+        csv(pricePredictionFile).then(data => {
+            setPricePrediction(data);
+        });
+        csv(priceTestSetFile).then(data => {
+            setPriceTestSet(data)
         });
        }, [])
       
   
-    return { prediction, testSet }
+    return { prediction, testSet ,demandPrediction,demandTestSet,pricePrediction, priceTestSet}
 
 } 
 

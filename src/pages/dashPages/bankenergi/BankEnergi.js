@@ -122,6 +122,7 @@ const BankEnergi = () => {
     }
     return (
         <div className="main--bank-ai-container">
+            <h1>Real time data (Energy data)</h1>
             {graphsData.map((subarray, index) => {
                 return (
                     <Row key={index}>
@@ -151,17 +152,19 @@ const BankEnergi = () => {
                     </Row>
                 )
             })}
-             <Row>
-               <Cell>
-               <div className="title--container">
-                    <h4> Energy Production</h4>
-                </div>
-                <EnergyProductionGraph
-                    dataGiven={carbonExported}
-                    keysAndUnits={getKeysAndUnits('carbon')}
-                />
-               </Cell>
-            </Row>
+            {/**  
+            <Row>
+            <Cell>
+            
+            <EnergyProductionGraph 
+                graphId={0}
+                dataGiven={energyFuel}
+                keysAndUnits={getKeysAndUnits('fuel')}
+
+            />
+            </Cell>
+            </Row> */}
+            
             
         </div>
     )
@@ -170,6 +173,10 @@ const BankEnergi = () => {
 export default BankEnergi
 
 /**
+ * 
+ * <div className="title--container">
+                    <h4> Energy Production</h4>
+                </div>
    <Row>
                <Cell>
                <div className="title--container">
@@ -182,3 +189,19 @@ export default BankEnergi
                </Cell>
             </Row>
  */
+
+ /**
+  <Row>
+               <Cell>
+               <div className="title--container">
+                    <h4> Energy Production</h4>
+                </div>
+                   <EnergyProductionGraph 
+                        dataGiven={energyFuel}
+                        keysAndUnits={getKeysAndUnits(energyFuel)}
+
+                   />
+            
+               </Cell>
+            </Row>
+  */
